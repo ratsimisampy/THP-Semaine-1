@@ -12,6 +12,7 @@ arr_length.times {
     my_hash[crypto_name[count]] = crypto_value[count]
     count +=1
 }
+#------------------------
 
 #Comparer les valeurs
 #Extraire les valeurs
@@ -20,13 +21,18 @@ float_values = []
 
 values.each{|i|
     #conversion des valeurs en float, sans '$', pour future comparaison
-    float_values.push( '%7f' % (i.gsub(/[$]/, "").to_f) ) 
+    float_values.push( i.gsub(/[$]/, "").to_f ) 
 }
-puts "#{float_values.sort[-1]}"
-puts "#{my_hash.key( "$#{ float_values.sort[-1].to_s }")}"
+puts "La plus grosse valeur de crypto est#{float_values.sort[-1]}"
+puts "La plus petite valeur de crypto est #{my_hash.key("$#{float_values.sort[0]}")}"
+puts 
 
-puts float_values.sort
-puts my_hash.key("$0.006578")
-puts my_hash.key("$46183.2")
 
-# puts "#{my_hash.values.each{|i| i.gsub(/$/, '').to_f }.sort}"
+#recherche du mot 'coin'
+coin_search = []
+my_hash.keys.each{ |key|
+    if key.match(/coin/)
+        coin_search.push(key)
+    end
+}
+puts "#{coin_search.length} cryptos contiennent le mot 'coin'"
